@@ -1,5 +1,5 @@
 # Software-Engineering-
-Software Engineering respository for courseworks 1 - 4 
+Software Engineering respository for sprints 1 - 4 
 
 Welcome all! 
 
