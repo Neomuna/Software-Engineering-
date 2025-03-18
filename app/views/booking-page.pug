@@ -1,0 +1,27 @@
+doctype html
+html
+  head
+    title Booking Page
+    link(rel='stylesheet', href='/styles.css')
+  body
+    h1 Booking Details
+
+    form(action='/book', method='post')
+      h2 Selected Language: #{language}
+      h2 Selected Tutor: #{tutor.name}
+
+      h3 Select a date and time for your session:
+      label(for='date') Choose a date:
+      input(type='date', id='date', name='date', required)
+      
+      label(for='time') Choose a time:
+      input(type='time', id='time', name='time', required)
+
+      // Hidden fields to pass selected language and tutor to the next page
+      input(type='hidden', name='language', value=language)
+      input(type='hidden', name='tutor', value=tutor.id)
+
+      button(type='submit') Book Now
+
+    footer
+      p © 2025 Connect 4 Tutors

@@ -1,0 +1,52 @@
+doctype html
+html
+  head
+    title Welcome to Connect 4
+    link(rel='stylesheet', href='/styles.css')
+  body
+    h1 Welcome to Connect 4!
+
+    form(action='/select', method='POST')
+      h2 Please select a language:
+      select(name='language')
+        option(value='en') English
+        option(value='es') Español
+        option(value='zh') 中文 (Mandarin)
+        option(value='hi') हिन्दी (Hindi)
+        option(value='ar') العربية (Arabic)
+        option(value='fr') Français
+        option(value='bn') বাংলা (Bengali)
+        option(value='ru') Русский (Russian)
+        option(value='pt') Português
+        option(value='ur') اردو (Urdu)
+        option(value='de') Deutsch (German)
+        option(value='ja') 日本語 (Japanese)
+        option(value='sw') Kiswahili (Swahili)
+        option(value='it') Italiano (Italian)
+        option(value='tr') Türkçe (Turkish)
+        option(value='ko') 한국어 (Korean)
+        option(value='vi') Tiếng Việt (Vietnamese)
+        option(value='fa') فارسی (Farsi/Persian)
+        option(value='pl') Polski (Polish)
+        option(value='nl') Nederlands (Dutch)
+        option(value='el') Ελληνικά (Greek)
+        option(value='he') עברית (Hebrew)
+        option(value='th') ไทย (Thai)
+        option(value='ta') தமிழ் (Tamil)
+        option(value='mr') मराठी (Marathi)
+        option(value='id') Bahasa Indonesia (Indonesian)
+        option(value='ms') Bahasa Melayu (Malay)
+        option(value='tl') Filipino (Tagalog)
+        option(value='pa') ਪੰਜਾਬੀ (Punjabi)
+        option(value='uk') Українська (Ukrainian)
+
+      h2 Please select a tutor:
+      select(name='tutor')
+        each tutor in tutors
+          option(value=tutor.id)= tutor.name
+
+      button(type='submit') Select Tutor
+
+    footer
+      p © 2025 Connect 4 Tutors
+

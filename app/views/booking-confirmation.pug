@@ -1,0 +1,20 @@
+doctype html
+html
+  head
+    title Booking Confirmation
+    link(rel='stylesheet', href='/styles.css')
+
+  body
+    h1 Booking Confirmation
+
+    p You have successfully booked a session with:
+    h2 #{tutor.name}  
+
+    p Language: #{language}
+    p Date: #{date}
+    p Time: #{time}
+
+    a(href="/") Return to Home
+
+    footer
+      p © 2025 Connect 4 Tutors
