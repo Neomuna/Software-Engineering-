@@ -7,12 +7,22 @@ on:
       main
 
 
-# tells it to install and run the latest version of ubuntu as well as the to install Node JS
+# tells it to install and run the latest version of ubuntu as well as the to install NodeJS
 jobs: 
   test: 
     runs- on: ubuntu-latest
-      container:
+    container:
         image: node20
       
+# adding code to virtual enviroment using latest verion of NodeJS
+      steps: 
+        - uses: actions/checkout@v3
+          with:
+            node-version: 20
 
-      ste
+ 
+# builds to the dependencies used in the build such as npm install and docker-compose up. Then npm run build, to build and run the code
+        - run: npm install
+        - run: docker-compose up
+        - run: npm run build
+        
