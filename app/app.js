@@ -1,4 +1,5 @@
 const express = require('express');
+const db = require('./services/db');
 const path = require('path');
 
 const app = express();
@@ -18,6 +19,17 @@ const tutors = [
   { id: 'tutor2', name: 'Jane Smith' },
   { id: 'tutor3', name: 'Ali Reza' }
 ];
+
+app.get("/Users-formatted", function(req, res) {
+  var sql = 'select * from User';
+  db.query(sql).then(results => {
+        // Send the results rows to the all-students template
+        // The rows will be in a variable called data
+      res.render('User', {data: results});
+  });
+});
+
+
 
 // Home route - renders the main selection page
 app.get('/', (req, res) => {
