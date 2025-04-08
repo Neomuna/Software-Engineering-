@@ -13,14 +13,23 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
 
-// Tutor List
+// Hard coded tutor List
 const tutors = [
   { id: 'tutor1', name: 'John Doe' },
   { id: 'tutor2', name: 'Jane Smith' },
   { id: 'tutor3', name: 'Ali Reza' }
 ];
 
-app.get("/Users-formatted", function(req, res) {
+app.get("/Language-formatted", function(req, res) {
+  var sql = 'select * from Language';
+  db.query(sql).then(results => {
+        // Send the results rows to the all-students template
+        // The rows will be in a variable called data
+      res.render('Langauge', {data: results});
+  });
+});
+
+app.get("/User-formatted", function(req, res) {
   var sql = 'select * from User';
   db.query(sql).then(results => {
         // Send the results rows to the all-students template
@@ -28,7 +37,6 @@ app.get("/Users-formatted", function(req, res) {
       res.render('User', {data: results});
   });
 });
-
 
 
 // Home route - renders the main selection page
@@ -65,4 +73,3 @@ app.post('/book', (req, res) => {
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
-
