@@ -1,13 +1,11 @@
 Student:
-SELECT LearnLanguage.UserID, User.FirstName, User.LastName, User.Role, Language.LanguageName
-FROM User 
-INNER JOIN LearnLanguage ON User.UserID = LearnLanguage.UserID
+SELECT LearnLanguage.StudentID, Student.FirstName, Student.LastName, Language.LanguageName
+FROM Student
+INNER JOIN LearnLanguage ON Student.StudentID = LearnLanguage.StudentID
 INNER JOIN Language ON LearnLanguage.LanguageKey = Language.LanguageKey
-WHERE User.Role = 'Student';
 
 Tutor:
-SELECT TeachLanguage.UserID, User.FirstName, User.LastName, User.Role, Language.LanguageName
-FROM User 
-INNER JOIN TeachLanguage ON User.UserID = TeachLanguage.UserID
-INNER JOIN Language ON TeachLanguage.LanguageKey = Language.LanguageKey
-WHERE User.Role = 'Tutor';
+SELECT TeachLanguage.TutorID, Tutor.FirstName, Tutor.LastName, Language.LanguageName
+FROM Tutor 
+INNER JOIN TeachLanguage ON Tutor.TutorID = TeachLanguage.TutorID
+INNER JOIN Language ON TeachLanguage.LanguageKey = Language.LanguageKey;
