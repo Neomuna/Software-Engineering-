@@ -1,3 +1,4 @@
+// app.js 
 const express = require('express');
 const db = require('./services/db');
 const path = require('path');
@@ -41,13 +42,19 @@ app.get("/User-formatted", function(req, res) {
 
 // Home route - renders the main selection page
 app.get('/', (req, res) => {
-  res.render('index', { title: 'Welcome to Connect 4', tutors });
+  var sql = 'select * from Language';
+  db.query(sql).then(results => {
+        // Send the results rows to the all-students template
+        // The rows will be in a variable called data
+      res.render('index', {languages: results, title: 'Welcome to Connect 4', tutors});
+  });
 });
+
 
 // Route for selecting a tutor
 app.post('/select', (req, res) => {
   const { language, tutor } = req.body;
-  
+ 
   // Find the selected tutor by ID
   const selectedTutor = tutors.find(t => t.id === tutor);
 
@@ -61,11 +68,11 @@ app.post('/book', (req, res) => {
   // Find the selected tutor again
   const selectedTutor = tutors.find(t => t.id === tutor);
 
-  res.render('booking-confirmation', { 
-    language, 
-    tutor: selectedTutor, 
-    date, 
-    time 
+  res.render('booking-confirmation', {
+    language,
+    tutor: selectedTutor,
+    date,
+    time
   });
 });
 
