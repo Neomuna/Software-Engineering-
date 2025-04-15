@@ -36,12 +36,12 @@ function isAuthenticated(req, res, next) {
   res.redirect('/login');
 }
 
-// GET: Login Page
+// Login Page
 app.get('/login', (req, res) => {
   res.render('login');
 });
 
-// POST: Handle Login
+//  Handle login
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
   const sql = 'SELECT * FROM User WHERE Username = ? AND Password = ?';
@@ -58,7 +58,7 @@ app.post('/login', (req, res) => {
   });
 });
 
-// GET: Logout
+// User logout
 app.get('/logout', (req, res) => {
   req.session.destroy(() => {
     res.redirect('/login');
