@@ -1,0 +1,19 @@
+doctype html
+html
+  head
+    title Login
+  body
+    h1 Login to Connect 4
+
+    form(action='/login', method='POST')
+      label(for='username') Username:
+      input(type='text', name='username', required)
+
+      label(for='password') Password:
+      input(type='password', name='password', required)
+
+      button(type='submit') Login
+
+
+    input(type='text', name='username')
+    input(type='password', name='password')

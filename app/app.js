@@ -22,27 +22,62 @@ const tutors = [
 ];
 
 app.get("/Language-formatted", function(req, res) {
-  var sql = 'select * from Language';
+  var sql = 'select * from language';
   db.query(sql).then(results => {
         // Send the results rows to the all-students template
         // The rows will be in a variable called data
-      res.render('Langauge', {data: results});
+      res.render('langauge', {data: results});
+  });
+});
+
+// functio to check login
+function isAuthenticated(req, res, next) {
+  if (req.session.user) return next();
+  res.redirect('/login');
+}
+
+// GET: Login Page
+app.get('/login', (req, res) => {
+  res.render('login');
+});
+
+// POST: Handle Login
+app.post('/login', (req, res) => {
+  const { username, password } = req.body;
+  const sql = 'SELECT * FROM User WHERE Username = ? AND Password = ?';
+  db.query(sql, [username, password]).then(results => {
+    if (results.length > 0) {
+      req.session.user = results[0];
+      res.redirect('/');
+    } else {
+      res.send('Invalid credentials. <a href="/login">Try again</a>');
+    }
+  }).catch(err => {
+    console.error('Login error:', err);
+    res.send('An error occurred. Please try again.');
+  });
+});
+
+// GET: Logout
+app.get('/logout', (req, res) => {
+  req.session.destroy(() => {
+    res.redirect('/login');
   });
 });
 
 app.get("/User-formatted", function(req, res) {
-  var sql = 'select * from User';
+  var sql = 'select * from user';
   db.query(sql).then(results => {
         // Send the results rows to the all-students template
         // The rows will be in a variable called data
-      res.render('User', {data: results});
+      res.render('user', {data: results});
   });
 });
 
 
 // Home route - renders the main selection page
 app.get('/', (req, res) => {
-  var sql = 'select * from Language';
+  var sql = 'select * from language';
   db.query(sql).then(results => {
         // Send the results rows to the all-students template
         // The rows will be in a variable called data
@@ -51,8 +86,36 @@ app.get('/', (req, res) => {
 });
 
 
+// for login 
+const session = require('express-session');
+
+app.use(session({
+  secret: 'connect4_secret_key',
+  resave: false,
+  saveUninitialized: false
+}))
+
+app.post('/login', (req, res) => {
+  const { username, password } = req.body;
+
+  const sql = 'SELECT * FROM User WHERE Username = ? AND Password = ?';
+  db.query(sql, [username, password]).then(results => {
+    if (results.length > 0) {
+      // Found user!
+      req.session.user = results[0]; // You can store the whole user or just essentials
+      res.redirect('/');
+    } else {
+      res.send('Invalid credentials. <a href="/login">Try again</a>');
+    }
+  }).catch(err => {
+    console.error('Login error:', err);
+    res.send('An error occurred. Please try again.');
+  });
+});
+
 // Route for selecting a tutor
 app.post('/select', (req, res) => {
+  console.log(req.body); // Added new line
   const { language, tutor } = req.body;
  
   // Find the selected tutor by ID
